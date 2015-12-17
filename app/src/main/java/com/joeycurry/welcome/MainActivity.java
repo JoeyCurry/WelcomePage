@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
     // 记录当前选中位置
     private int currentIndex;
 
+    private TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
     private void initView() {
         // 实例化ArrayList对象
         views = new ArrayList<View>();
-
+        textView = (TextView) findViewById(R.id.tv_skip);
         // 实例化ViewPager
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -73,7 +76,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
         viewPager.setAdapter(vpAdapter);
         // 设置监听
         viewPager.setOnPageChangeListener(this);
-
+        viewPager.setPageTransformer(true,new DepthPageTransformer());
+//        viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
         // 初始化底部小点
         initPoint();
     }
@@ -146,6 +150,11 @@ public class MainActivity extends Activity implements View.OnClickListener,
     public void onPageSelected(int position) {
         // 设置底部小点选中状态
         setCurDot(position);
+        if (position == (pics.length - 1)){
+            textView.setVisibility(View.VISIBLE);
+        } else {
+            textView.setVisibility(View.GONE);
+        }
     }
 
     @Override
