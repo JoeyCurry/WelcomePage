@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,8 +23,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
     private ArrayList<View> views;
 
     // 引导图片资源
-    private static final int[] pics = { R.mipmap.guide, R.mipmap.guide,
-            R.mipmap.guide, R.mipmap.guide };
+    private static final int[] pics = { R.mipmap.guide1, R.mipmap.guide2,
+            R.mipmap.guide3, R.mipmap.guide4 };
 
     // 底部小点的图片
     private ImageView[] points;
@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
     // 记录当前选中位置
     private int currentIndex;
 
-    private TextView textView;
+    private Button btn_login,btn_reg;
 
 
     @Override
@@ -48,7 +48,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
     private void initView() {
         // 实例化ArrayList对象
         views = new ArrayList<View>();
-        textView = (TextView) findViewById(R.id.tv_skip);
+        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_reg = (Button) findViewById(R.id.btn_reg);
         // 实例化ViewPager
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -76,8 +77,9 @@ public class MainActivity extends Activity implements View.OnClickListener,
         viewPager.setAdapter(vpAdapter);
         // 设置监听
         viewPager.setOnPageChangeListener(this);
-        viewPager.setPageTransformer(true,new DepthPageTransformer());
-//        viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
+        //选择viewpaper的切换动画
+//        viewPager.setPageTransformer(true,new DepthPageTransformer());
+        viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
         // 初始化底部小点
         initPoint();
     }
@@ -151,9 +153,11 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // 设置底部小点选中状态
         setCurDot(position);
         if (position == (pics.length - 1)){
-            textView.setVisibility(View.VISIBLE);
+            btn_login.setVisibility(View.VISIBLE);
+            btn_reg.setVisibility(View.VISIBLE);
         } else {
-            textView.setVisibility(View.GONE);
+            btn_login.setVisibility(View.GONE);
+            btn_reg.setVisibility(View.GONE);
         }
     }
 
